@@ -1,7 +1,10 @@
 // For format details, see https://containers.dev/implementors/json_reference/
 {
     "name": "Python 3 Developer Container",
-    "image": "python:3.11",
+    "build": {
+        "dockerfile": "../Dockerfile",
+        "target": "developer"
+    },
     "remoteEnv": {
          // Allow X11 apps to run inside the container
         "DISPLAY": "${localEnv:DISPLAY}",
@@ -25,7 +28,7 @@
         "ghcr.io/devcontainers/features/common-utils:2": {
             "upgradePackages": false
         }
-    },    
+    },
     "runArgs": [
         // Allow the container to access the host X11 display and EPICS CA
         "--net=host",
