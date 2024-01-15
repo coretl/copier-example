@@ -24,7 +24,6 @@ requires-python = ">=3.7"
 
 [project.optional-dependencies]
 dev = [
-    "black",
     "mypy",
     "pipdeptree",
     "pre-commit",
@@ -36,7 +35,6 @@ dev = [
     "sphinx-copybutton",
     "sphinx-design",
     "tox-direct",
-    "types-mock",
 ]
 
 [project.scripts]
@@ -80,7 +78,7 @@ legacy_tox_ini = """
 [tox]
 skipsdist=True
 
-[testenv:{pre-commit,mypy,pytest,docs}]
+[testenv:{pre-commit,mypy,pytest-cov,docs}]
 # Don't create a virtualenv for the command, requires tox-direct plugin
 direct = True
 passenv = *
@@ -91,7 +89,7 @@ allowlist_externals =
     sphinx-build
     sphinx-autobuild
 commands =
-    pytest: pytest --cov=copier_example --cov-report term --cov-report xml:cov.xml {posargs}
+    pytest-cov: pytest --cov=copier_example --cov-report term --cov-report xml:cov.xml {posargs}
     mypy: mypy src tests {posargs}
     pre-commit: pre-commit run --all-files {posargs}
     docs: sphinx-{posargs:build -EW --keep-going} -T docs build/html
@@ -106,5 +104,5 @@ select = [
     "E",    # pycodestyle errors - https://beta.ruff.rs/docs/rules/#error-e
     "F",    # pyflakes rules - https://beta.ruff.rs/docs/rules/#pyflakes-f
     "W",    # pycodestyle warnings - https://beta.ruff.rs/docs/rules/#warning-w
-    "I001", # isort
+    "I",    # isort - https://docs.astral.sh/ruff/rules/#isort-i
 ]
