@@ -34,21 +34,28 @@ jobs:
       - name: Build docs
         run: tox -e docs
 
-      - name: Sanitize ref name for docs version
-        run: echo "DOCS_VERSION=${GITHUB_REF_NAME//[^A-Za-z0-9._-]/_}" >> $GITHUB_ENV
-
       - name: Move to versioned directory
-        run: mv build/html .github/pages/$DOCS_VERSION
+        run: mv build/html .github/pages/main
 
-      - name: Write switcher.json
-        run: python .github/pages/make_switcher.py --add $DOCS_VERSION ${{ github.repository }} .github/pages/switcher.json
-
-      - name: Publish Docs to gh-pages
-        if: github.event_name == 'push' && github.actor != 'dependabot[bot]'
-        # We pin to the SHA, not the tag, for security reasons.
-        # https://docs.github.com/en/actions/learn-github-actions/security-hardening-for-github-actions#using-third-party-actions
-        uses: peaceiris/actions-gh-pages@64b46b4226a4a12da2239ba3ea5aa73e3163c75b # v3.9.1
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: .github/pages
-          keep_files: true
+          path: .github/pages
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+  deploy:
+    permissions:
+      contents: read
+      pages: write
+      id-token: write  
+    environment:
+      name: github-pages
+      url: ${{steps.deployment.outputs.page_url}}
+    runs-on: ubuntu-latest
+    needs: docs
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
