@@ -26,7 +26,7 @@ jobs:
           artifact_name: lint
 
       - name: Lint
-        run: tox -e pre-commit,mypy
+        run: tox -e pre-commit,pyright
 
   test:
     if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name != github.repository
@@ -66,7 +66,7 @@ jobs:
         run: pipdeptree
 
       - name: Run tests
-        run: tox -e pytest
+        run: tox -e pytest-cov
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v3
