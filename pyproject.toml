@@ -15,7 +15,6 @@ classifiers = [
 ]
 description = "Short description"
 dependencies = [
-    "typing-extensions;python_version<'3.8'",
 ] # Add project dependencies here, e.g. ["click", "numpy"]
 dynamic = ["version"]
 license.file = "LICENSE"
