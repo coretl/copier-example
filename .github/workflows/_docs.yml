@@ -18,6 +18,8 @@ jobs:
 
       - name: Install python packages
         uses: ./.github/actions/install_requirements
+        with:          
+          python-version: ${{ env.DEV_PYTHON }}
 
       - name: Build docs
         run: tox -e docs

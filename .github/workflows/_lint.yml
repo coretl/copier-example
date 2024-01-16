@@ -11,6 +11,8 @@ jobs:
 
       - name: Install python packages
         uses: ./.github/actions/install_requirements
+        with:          
+          python-version: ${{ env.DEV_PYTHON }}
 
       - name: Lint
         run: tox -e pre-commit,pyright

@@ -29,6 +29,7 @@ jobs:
       - name: Install produced wheel
         uses: ./.github/actions/install_requirements
         with:          
+          python-version: ${{ env.DEV_PYTHON }}
           pip-install: dist/*.whl
 
       - name: Test module --version works using the installed wheel
