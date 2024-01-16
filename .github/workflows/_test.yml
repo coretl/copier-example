@@ -27,8 +27,14 @@ jobs:
         with:
           python-version: ${{ inputs.python-version }}
 
+      - name: Report dependencies
+        run: pipdeptree
+
+      - name: Run tests
+        run: tox -e pytest-cov
+
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v3
         with:
-          name: ${{ matrix.python }}/${{ matrix.os }}
+          name: ${{ inputs.python-version }}/${{ inputs.runs-on }}
           files: cov.xml
