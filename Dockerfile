@@ -15,8 +15,8 @@ ENV PATH=/venv/bin:$PATH
 # The build stage installs the context into the venv
 FROM developer as build
 COPY . /context
-WORKDIR /context
-RUN pip install .
+RUN ls -a /context
+RUN pip install /context
 
 # The runtime stage copies the built venv into a slim runtime container
 FROM python:${PYTHON_VERSION}-slim as runtime
