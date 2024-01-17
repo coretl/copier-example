@@ -4,11 +4,6 @@ on:
   push:
   pull_request:
 
-concurrency:
-  # Cancel the branch CI if there is a PR open from that branch already
-  group: ${{ github.head_ref || github.ref_name }}
-  cancel-in-progress: true
-
 jobs:
   lint:
     uses: ./.github/workflows/_lint.yml
