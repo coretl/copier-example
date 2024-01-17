@@ -18,6 +18,8 @@ jobs:
               repo: context.repo.repo,
               head: `${context.repo.owner}:${context.repo.branch}`
             })
+            console.log(prs.data.length)
+            console.log(prs.data.length > 0)
             return prs.data.length > 0
     outputs:
       branch-in-pr: ${{ steps.script.outputs.result }}
