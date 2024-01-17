@@ -55,3 +55,5 @@ jobs:
     needs: [dist, docs]
     if: github.ref_type == 'tag'
     uses: ./.github/workflows/_release.yml
+    permissions:
+      contents: write
