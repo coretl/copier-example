@@ -2,7 +2,8 @@
 #
 # The devcontainer should use the developer target and run as root with podman
 # or docker with user namespaces.
-FROM python:3.11 as developer
+ARG PYTHON_VERSION=3.11
+FROM python:${PYTHON_VERSION} as developer
 # Add any system dependencies for the developer/build environment here e.g.
 # RUN apt-get update && apt-get upgrade -y && \
 #     apt-get install -y --no-install-recommends \
@@ -18,7 +19,7 @@ WORKDIR /context
 RUN pip install .
 
 # The runtime stage copies the built venv into a slim runtime container
-FROM python:3.11-slim as runtime
+FROM python:${PYTHON_VERSION}-slim as runtime
 # Add apt-get system dependecies for runtime here if needed
 COPY --from=build /venv/ /venv/
 ENV PATH=/venv/bin:$PATH

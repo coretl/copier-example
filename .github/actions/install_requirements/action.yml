@@ -2,8 +2,8 @@ name: Install requirements
 description: Install a version of python then call pip install and report what was installed
 inputs:
   python-version:
-    description: Python version to install
-    required: True
+    description: Python version to install, default is from Dockerfile
+    default: "dev"
   pip-install:
     description: Parameters to pass to pip install
     default: "-c requirements/dev-constraints.txt -e .[dev]"
@@ -11,12 +11,21 @@ inputs:
 runs:
   using: composite
   steps:
+    - name: Get version of python
+      run:
+        PYTHON_VERSION="${{ inputs.python-version }}"
+        if [ $PYTHON_VERSION == "dev" ]; then
+          PYTHON_VERSION=$(sed -n "s/ARG PYTHON_VERSION=//p" Dockerfile)
+        fi
+        echo "PYTHON_VERSION=$PYTHON_VERSION" >> "$GITHUB_ENV"
+      shell: bash
+
     - name: Setup python
       uses: actions/setup-python@v5
       with:
-        python-version: ${{ inputs.python-version }}
+        python-version: ${{ env.PYTHON_VERSION }}
 
-    - name: Pip install
+    - name: Install packages
       run: pip install ${{ inputs.pip-install }}
       shell: bash
 

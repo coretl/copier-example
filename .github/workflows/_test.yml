@@ -22,16 +22,16 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install python packages without constraints
-        if: inputs.python-version != env.DEV_PYTHON
+      - if: inputs.python-version == 'dev'
+        name: Install dev constrained python packages
+        uses: ./.github/actions/install_requirements
+
+      - if: inputs.python-version != 'dev'
+        name: Install unconstrained python packages
         uses: ./.github/actions/install_requirements
         with:
           python-version: ${{ inputs.python-version }}
-          pip-install: .[dev]
-
-      - name: Install python packages with dev constraints
-        if: inputs.python-version == env.DEV_PYTHON
-        uses: ./.github/actions/install_requirements
+          pip-install: ".[dev]"
 
       - name: Report dependencies
         run: pipdeptree

@@ -4,10 +4,6 @@ on:
   push:
   pull_request:
 
-env:
-  # This should match the container python
-  DEV_PYTHON: "3.11"
-
 jobs:
   lint:
     # pull requests are a duplicate of a branch push if within the same repo.
@@ -20,6 +16,10 @@ jobs:
       matrix:
         runs-on: ["ubuntu-latest", "windows-latest", "macos-latest"]
         python-version: ["3.8", "3.9", "3.10", "3.11"]
+        include:
+          # Include one that runs in the dev environment
+          - runs-on: "ubuntu-latest"
+            python-version: "dev"
       fail-fast: false
     uses: ./.github/workflows/_test.yml
     with:
