@@ -42,11 +42,15 @@ jobs:
       python-version: ${{ matrix.python-version }}
 
   container:
+    needs: check
+    if: ${{ ! needs.check.outputs.branch-in-pr }}
     uses: ./.github/workflows/_container.yml
     permissions:
       packages: write
 
   docs:
+    needs: check
+    if: ${{ ! needs.check.outputs.branch-in-pr }}    
     uses: ./.github/workflows/_docs.yml
 
   pages:
@@ -58,6 +62,8 @@ jobs:
       id-token: write
 
   dist:
+    needs: check
+    if: ${{ ! needs.check.outputs.branch-in-pr }}    
     uses: ./.github/workflows/_dist.yml
 
   pypi:
