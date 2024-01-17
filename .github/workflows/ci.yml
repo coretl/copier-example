@@ -5,6 +5,17 @@ on:
   pull_request:
 
 jobs:
+  debounce:
+    runs-on: "ubuntu-latest"
+    steps:
+      - uses: actions/github-script@v7
+        with:
+          script: |
+            console.log(octokit.rest.pulls.list({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+            }))
+
   lint:
     uses: ./.github/workflows/_lint.yml
 
