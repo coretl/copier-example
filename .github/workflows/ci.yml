@@ -16,9 +16,9 @@ jobs:
             const prs = await github.rest.pulls.list({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              head: `${context.repo.owner}:${context.repo.branch}`
+              head: context.repo.owner + ':${{ github.ref_name }}'
             })
-            console.log(`${context.repo.owner}:${context.ref}`)
+            console.log(context.repo.owner + ':${{ github.ref_name }}')
             console.log(prs)
             if (prs.data.length) {
               console.log(`Skipping as branch is in PR #${prs.data[0]["number"]}`)
