@@ -18,8 +18,6 @@ jobs:
               repo: context.repo.repo,
               head: context.repo.owner + ':${{ github.ref_name }}'
             })
-            console.log(context.repo.owner + ':${{ github.ref_name }}')
-            console.log(prs)
             if (prs.data.length) {
               console.log(`Skipping as branch is in PR #${prs.data[0]["number"]}`)
               return prs.data[0]["number"]
