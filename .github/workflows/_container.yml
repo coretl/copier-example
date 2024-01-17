@@ -12,15 +12,9 @@ jobs:
           # Need this to get version number from last tag
           fetch-depth: 0
 
-      - run: ls -a
-
-
       - name: Set up Docker Buildx
         id: buildx
         uses: docker/setup-buildx-action@v3
-
-      - run: ls -a
-
 
       - name: Log in to GitHub Docker Registry
         if: github.event_name != 'pull_request'
@@ -30,11 +24,10 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - run: ls -a
-
       - name: Build and export to Docker local cache
         uses: docker/build-push-action@v5
         with:
+          context: .
           # Need load and tags so we can test it below
           load: true
           tags: tag_for_testing
@@ -57,6 +50,7 @@ jobs:
         # This does not build the image again, it will find the image in the
         # Docker cache and publish it
         with:
+          context: .
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
