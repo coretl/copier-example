@@ -12,7 +12,7 @@ runs:
   using: composite
   steps:
     - name: Get version of python
-      run:
+      run: |
         PYTHON_VERSION="${{ inputs.python-version }}"
         if [ $PYTHON_VERSION == "dev" ]; then
           PYTHON_VERSION=$(sed -n "s/ARG PYTHON_VERSION=//p" Dockerfile)
