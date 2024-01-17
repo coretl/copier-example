@@ -5,21 +5,26 @@ on:
   pull_request:
 
 jobs:
-  debounce:
+  check:
     runs-on: "ubuntu-latest"
     steps:
       - uses: actions/github-script@v7
+        id: branch-in-pr
         with:
           script: |
-            console.log(github.rest.pulls.list({
+            console.log(await github.rest.pulls.list({
               owner: context.repo.owner,
               repo: context.repo.repo,
-            }))
-
+            }));
+            return true
+    outputs:
+      branch-in-pr: ${{ steps.branch-in-pr.outputs.result }}
   lint:
     uses: ./.github/workflows/_lint.yml
 
   test:
+    needs: check
+    if: !needs.check.outputs.branch-in-pr
     strategy:
       matrix:
         runs-on: ["ubuntu-latest", "windows-latest", "macos-latest"]
