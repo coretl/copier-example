@@ -18,10 +18,15 @@ jobs:
               repo: context.repo.repo,
               head: `${context.repo.owner}:${context.repo.branch}`
             })
+            console.log(prs)
+            console.log(prs.length)
             return prs.length > 0
     outputs:
       branch-in-pr: ${{ steps.script.outputs.result }}
+
   lint:
+    needs: check
+    if: ${{ ! needs.check.outputs.branch-in-pr }}
     uses: ./.github/workflows/_lint.yml
 
   test:
