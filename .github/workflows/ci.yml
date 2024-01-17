@@ -4,14 +4,16 @@ on:
   push:
   pull_request:
 
+concurrency:
+  # Cancel the branch CI if there is a PR open from that branch already
+  group: ${{ github.head_ref || github.ref_name }}
+  cancel-in-progress: true
+
 jobs:
   lint:
-    # pull requests are a duplicate of a branch push if within the same repo.
-    # if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name != github.repository
     uses: ./.github/workflows/_lint.yml
 
   test:
-    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name != github.repository
     strategy:
       matrix:
         runs-on: ["ubuntu-latest", "windows-latest", "macos-latest"]
@@ -27,13 +29,11 @@ jobs:
       python-version: ${{ matrix.python-version }}
 
   container:
-    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name != github.repository
     uses: ./.github/workflows/_container.yml
     permissions:
       packages: write
 
   docs:
-    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name != github.repository
     uses: ./.github/workflows/_docs.yml
 
   pages:
@@ -45,7 +45,6 @@ jobs:
       id-token: write
 
   dist:
-    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name != github.repository
     uses: ./.github/workflows/_dist.yml
 
   pypi:
