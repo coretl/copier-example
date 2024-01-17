@@ -1,6 +1,8 @@
 copier_example
 ===========================
 
+I'm a PR
+
 |code_ci| |docs_ci| |coverage| |pypi_version| |license|
 
 This is where you should write a short paragraph that describes what your module does,
