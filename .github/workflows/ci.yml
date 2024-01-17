@@ -20,19 +20,19 @@ jobs:
             })
             if (prs.data.length) {
               console.log(`Skipping as branch is in PR #${prs.data[0]["number"]}`)
-              return true
+              return prs.data[0]["number"]
             }
     outputs:
-      branch-in-pr: ${{ steps.script.outputs.result }}
+      branch-pr: ${{ steps.script.outputs.result }}
 
   lint:
     needs: check
-    if: ${{ ! needs.check.outputs.branch-in-pr }}
+    if: ${{ ! needs.check.outputs.branch-pr }}
     uses: ./.github/workflows/_lint.yml
 
   test:
     needs: check
-    if: ${{ ! needs.check.outputs.branch-in-pr }}
+    if: ${{ ! needs.check.outputs.branch-pr }}
     strategy:
       matrix:
         runs-on: ["ubuntu-latest", "windows-latest", "macos-latest"]
@@ -49,14 +49,14 @@ jobs:
 
   container:
     needs: check
-    if: ${{ ! needs.check.outputs.branch-in-pr }}
+    if: ${{ ! needs.check.outputs.branch-pr }}
     uses: ./.github/workflows/_container.yml
     permissions:
       packages: write
 
   docs:
     needs: check
-    if: ${{ ! needs.check.outputs.branch-in-pr }}    
+    if: ${{ ! needs.check.outputs.branch-pr }}    
     uses: ./.github/workflows/_docs.yml
 
   pages:
@@ -69,7 +69,7 @@ jobs:
 
   dist:
     needs: check
-    if: ${{ ! needs.check.outputs.branch-in-pr }}    
+    if: ${{ ! needs.check.outputs.branch-pr }}    
     uses: ./.github/workflows/_dist.yml
 
   pypi:
