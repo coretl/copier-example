@@ -9,6 +9,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - run: cat README.rst
+
       - name: Install python packages
         uses: ./.github/actions/install_requirements
 
