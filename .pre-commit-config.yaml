@@ -25,5 +25,6 @@ repos:
       - id: constraints
         name: Check dev-constraints
         language: system
-        entry: ./requirements/generate.sh
+        entry: ./requirements/regenerate.sh
         files: requirements/dev-constraints.txt
+        pass_filenames: false
