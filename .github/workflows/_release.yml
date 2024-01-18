@@ -13,13 +13,11 @@ jobs:
         run: |
           if [ -d docs ]; then
             zip -r docs.zip docs
-            FILES=docs.zip
+            echo 'DOCS=docs.zip' >> $GITHUB_ENV
           fi
           if [ -d dist ]; then
-            FILES='dist.*
-                  '$FILES
+            echo 'DIST=dist/*' >> $GITHUB_ENV
           fi
-          echo "FILES=$FILES" >> $GITHUB_ENV
 
       - name: Create GitHub Release
         # We pin to the SHA, not the tag, for security reasons.
@@ -27,7 +25,9 @@ jobs:
         uses: softprops/action-gh-release@de2c0eb89ae2a093876385947365aca7b0e5f844 # v0.1.15
         with:
           prerelease: ${{ contains(github.ref_name, 'a') || contains(github.ref_name, 'b') || contains(github.ref_name, 'rc') }}
-          files: ${{ env.FILES }}
+          files:
+            ${{ env.DOCS }}
+            ${{ env.DIST }}
           generate_release_notes: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
