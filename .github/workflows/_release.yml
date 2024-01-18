@@ -12,8 +12,8 @@ jobs:
       - name: Prepare release files
         run: |
           if [ -d docs ]; then
-            zip -r docs.zip docs/*
-            echo 'DOCS=docs.zip' >> $GITHUB_ENV
+            cd docs && zip -r docs.zip *
+            echo 'DOCS=docs/docs.zip' >> $GITHUB_ENV
           fi
           if [ -d dist ]; then
             echo 'DIST=dist/*' >> $GITHUB_ENV
