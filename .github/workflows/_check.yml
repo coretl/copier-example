@@ -3,10 +3,10 @@ on:
     outputs:
       branch-pr:
         description: The PR number if the branch is in one
-        value: ${{ jobs.branch.outputs.branch-pr }}
+        value: ${{ jobs.pr.outputs.branch-pr }}
 
 jobs:
-  branch:
+  pr:
     runs-on: "ubuntu-latest"
     outputs:
       branch-pr: ${{ steps.script.outputs.result }}
