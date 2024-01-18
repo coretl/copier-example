@@ -12,5 +12,5 @@ repos:
         name: Run ruff
         stages: [commit]
         language: system
-        entry: ruff
+        entry: ruff format
         types: [python]
