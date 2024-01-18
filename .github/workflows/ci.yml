@@ -5,10 +5,17 @@ on:
   pull_request:
 
 jobs:
+  check:
+    uses: ./.github/workflows/_check.yml
+
   lint:
+    needs: check
+    if: ${{ ! needs.check.outputs.branch-pr }}
     uses: ./.github/workflows/_lint.yml
 
   test:
+    needs: check
+    if: ${{ ! needs.check.outputs.branch-pr }}
     strategy:
       matrix:
         runs-on: ["ubuntu-latest", "windows-latest", "macos-latest"]
@@ -24,11 +31,15 @@ jobs:
       python-version: ${{ matrix.python-version }}
 
   container:
+    needs: check
+    if: ${{ ! needs.check.outputs.branch-pr }}
     uses: ./.github/workflows/_container.yml
     permissions:
       packages: write
 
   docs:
+    needs: check
+    if: ${{ ! needs.check.outputs.branch-pr }}
     uses: ./.github/workflows/_docs.yml
 
   pages:
@@ -40,6 +51,8 @@ jobs:
       id-token: write
 
   dist:
+    needs: check
+    if: ${{ ! needs.check.outputs.branch-pr }}
     uses: ./.github/workflows/_dist.yml
 
   pypi:
