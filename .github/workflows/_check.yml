@@ -22,9 +22,6 @@ jobs:
               head: context.repo.owner + ':${{ github.ref_name }}'
             })
             if (prs.data.length) {
-              console.log(`::notice ::Skipping CI on branch push as it is already run in PR`)
+              console.log(`::notice ::Skipping CI on branch push as it is already run in PR #${prs.data[0]["number"]}`)
               return prs.data[0]["number"]
             }
-      - name: Report summary
-        if: steps.script.outputs.result
-        run: "echo 'Skipping CI on branch push as it is already run in PR #${{ steps.script.outputs.result }}' >> $GITHUB_STEP_SUMMARY"
