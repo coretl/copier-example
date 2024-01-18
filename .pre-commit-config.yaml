@@ -25,5 +25,5 @@ repos:
       - id: constraints
         name: Check dev-constraints
         language: system
-        entry: pip freeze --exclude-editable >
+        entry: ./requirements/generate.sh
         files: requirements/dev-constraints.txt
