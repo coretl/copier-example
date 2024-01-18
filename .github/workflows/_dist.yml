@@ -28,7 +28,7 @@ jobs:
 
       - name: Install produced wheel
         uses: ./.github/actions/install_requirements
-        with:          
+        with:
           pip-install: dist/*.whl
 
       - name: Test module --version works using the installed wheel

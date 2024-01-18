@@ -6,7 +6,7 @@
         "target": "developer"
     },
     "remoteEnv": {
-         // Allow X11 apps to run inside the container
+        // Allow X11 apps to run inside the container
         "DISPLAY": "${localEnv:DISPLAY}",
         // Tell pip it is ok to install into system python
         "PIP_ROOT_USER_ACTION": "ignore"

@@ -1,30 +1,29 @@
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.4.0
+    rev: v4.5.0
     hooks:
       - id: check-added-large-files
       - id: check-yaml
       - id: check-merge-conflict
 
-  # - repo: local
-  #   hooks:
-  #     - id: ruff-check
-  #       name: Run ruff linter
-  #       language: system
-  #       entry: ruff check --fix
-  #       types: [python]
-
-  #     - id: ruff-format
-  #       name: Run ruff formatter
-  #       language: system
-  #       entry: ruff format
-  #       types: [python]
-
-  - repo: https://github.com/astral-sh/ruff-pre-commit
-    # Ruff version.
-    rev: v0.1.13
+  - repo: local
     hooks:
-      # Run the linter.
       - id: ruff
-      # Run the formatter.
+        name: Run ruff linter
+        language: system
+        entry: ruff check --force-exclude
+        types: [python]
+        require_serial: true
+
       - id: ruff-format
+        name: Run ruff formatter
+        language: system
+        entry: ruff format --force-exclude
+        types: [python]
+        require_serial: true
+
+      - id: constraints
+        name: Check dev-constraints
+        language: system
+        entry: pip freeze >
+        files: requirements/dev-constraints.txt
