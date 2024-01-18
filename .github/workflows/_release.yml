@@ -16,7 +16,8 @@ jobs:
             FILES=docs.zip
           fi
           if [ -d dist ]; then
-            FILES='dist.*'\n$FILES
+            FILES='dist.*
+                  '$FILES
           fi
           echo "FILES=$FILES" >> $GITHUB_ENV
 
