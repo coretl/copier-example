@@ -6,6 +6,7 @@ on:
 
 jobs:
   check:
+    name: Check if branch push CI would duplicate a PR run
     uses: ./.github/workflows/_check.yml
 
   lint:
