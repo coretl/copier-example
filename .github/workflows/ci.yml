@@ -6,24 +6,7 @@ on:
 
 jobs:
   check:
-    runs-on: "ubuntu-latest"
-    steps:
-      - uses: actions/github-script@v7
-        id: script
-        if: github.event_name == 'push'
-        with:
-          script: |
-            const prs = await github.rest.pulls.list({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              head: context.repo.owner + ':${{ github.ref_name }}'
-            })
-            if (prs.data.length) {
-              console.log(`Skipping as branch is in PR #${prs.data[0]["number"]}`)
-              return prs.data[0]["number"]
-            }
-    outputs:
-      branch-pr: ${{ steps.script.outputs.result }}
+    uses: ./.github/workflows/_check.yml
 
   lint:
     needs: check
@@ -56,7 +39,7 @@ jobs:
 
   docs:
     needs: check
-    if: ${{ ! needs.check.outputs.branch-pr }}    
+    if: ${{ ! needs.check.outputs.branch-pr }}
     uses: ./.github/workflows/_docs.yml
 
   pages:
@@ -69,7 +52,7 @@ jobs:
 
   dist:
     needs: check
-    if: ${{ ! needs.check.outputs.branch-pr }}    
+    if: ${{ ! needs.check.outputs.branch-pr }}
     uses: ./.github/workflows/_dist.yml
 
   pypi:
