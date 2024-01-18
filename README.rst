@@ -30,6 +30,20 @@ Or if it is a commandline tool then you might put some example commands here::
 
     $ python -m copier_example --version
 
+TODO
+====
+
+- [x] Use pyright instead of mypy
+- [x] Use
+- [x] Use GH pages publishing
+- [x] Split up CI
+- [x] Slim down devcontainer
+- [x] Use dev constraints everywhere
+- [ ] Investigate ruff checks and fixes
+- [ ] Add pre-commit for dev constraints
+- [ ] Get docs from releases and add them too
+- [ ] MD-ify docs
+
 .. |code_ci| image:: https://github.com/coretl/copier-example/actions/workflows/code.yml/badge.svg?branch=main
     :target: https://github.com/coretl/copier-example/actions/workflows/code.yml
     :alt: Code CI
