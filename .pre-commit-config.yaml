@@ -23,8 +23,8 @@ repos:
         require_serial: true
 
       - id: constraints
-        name: Check dev-constraints
+        name: Check constraints
         language: system
-        entry: ./requirements/regenerate.sh
-        files: requirements/dev-constraints.txt
+        entry: ./requirements/regenerate.sh --if-non-empty
+        files: requirements/constraints.txt
         pass_filenames: false
