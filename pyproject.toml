@@ -89,7 +89,7 @@ allowlist_externals =
 commands =
     pytest-cov: pytest --cov=copier_example --cov-report term --cov-report xml:cov.xml {posargs}
     pyright: pyright src tests {posargs}
-    pre-commit: pre-commit run --all-files {posargs}
+    pre-commit: pre-commit run --all-files --show-diff-on-failure {posargs}
     docs: sphinx-{posargs:build -EW --keep-going} -T docs build/html
 """
 
@@ -109,6 +109,7 @@ select = [
 src-files = ["pyproject.toml"]
 extras = ["dev"]
 output-file = "dev-requirements.txt"
+quiet = true
 # Make output suitable for use as a constraints file
 strip-extras = true
 # Improves speed for modern dependencies
