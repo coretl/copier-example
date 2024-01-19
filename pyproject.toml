@@ -112,5 +112,3 @@ output-file = "dev-requirements.txt"
 quiet = true
 # Make output suitable for use as a constraints file
 strip-extras = true
-# Improves speed for modern dependencies
-build-isolation = false
