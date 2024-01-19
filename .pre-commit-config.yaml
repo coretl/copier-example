@@ -9,21 +9,21 @@ repos:
   - repo: local
     hooks:
       - id: ruff
-        name: Run ruff linter
+        name: lint with ruff
         language: system
         entry: ruff check --force-exclude
         types: [python]
         require_serial: true
 
       - id: ruff-format
-        name: Run ruff formatter
+        name: format with ruff
         language: system
         entry: ruff format --force-exclude
         types: [python]
         require_serial: true
 
       - id: constraints
-        name: Check constraints
+        name: check constraints match installed
         language: system
         entry: ./requirements/regenerate.sh --if-non-empty
         files: requirements/constraints.txt
