@@ -6,7 +6,7 @@ inputs:
     default: "dev"
   pip-install:
     description: Parameters to pass to pip install
-    default: "-c requirements/constraints.txt -e .[dev]"
+    default: "-c dev-requirements.txt -e .[dev]"
 
 runs:
   using: composite

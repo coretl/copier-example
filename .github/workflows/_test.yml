@@ -33,9 +33,6 @@ jobs:
           python-version: ${{ inputs.python-version }}
           pip-install: ".[dev]"
 
-      - name: Report dependencies
-        run: pipdeptree
-
       - name: Run tests
         run: tox -e pytest-cov
 

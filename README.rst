@@ -39,8 +39,8 @@ TODO
 - [x] Split up CI
 - [x] Slim down devcontainer
 - [x] Use dev constraints everywhere
-- [ ] Investigate ruff checks and fixes
-- [ ] Add pre-commit for dev constraints
+- [x] Investigate ruff checks and fixes
+- [x] Add pre-commit for dev constraints
 - [ ] Get docs from releases and add them too
 - [ ] MD-ify docs
 
