@@ -109,4 +109,7 @@ select = [
 src-files = ["pyproject.toml"]
 extras = ["dev"]
 output-file = "dev-requirements.txt"
+# Make output suitable for use as a constraints file
 strip-extras = true
+# Improves speed for modern dependencies
+build-isolation = false
