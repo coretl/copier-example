@@ -112,3 +112,5 @@ output-file = "dev-requirements.txt"
 quiet = true
 # Make output suitable for use as a constraints file
 strip-extras = true
+# Remove annotations as coverage source seems to make false positive in CI
+no-annotate = true

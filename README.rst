@@ -43,6 +43,8 @@ TODO
 - [x] Add pre-commit for dev constraints
 - [ ] Get docs from releases and add them too
 - [ ] MD-ify docs
+- [ ] Run repo review
+- [ ] Fix broken docs links
 
 .. |code_ci| image:: https://github.com/coretl/copier-example/actions/workflows/code.yml/badge.svg?branch=main
     :target: https://github.com/coretl/copier-example/actions/workflows/code.yml
