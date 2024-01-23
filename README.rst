@@ -45,6 +45,9 @@ TODO
 - [ ] MD-ify docs
 - [ ] Run repo review
 - [ ] Fix broken docs links
+- [ ] Group dependabot alerts
+- [ ] Delete favicon
+- [ ] Add copier to pyproject
 
 .. |code_ci| image:: https://github.com/coretl/copier-example/actions/workflows/code.yml/badge.svg?branch=main
     :target: https://github.com/coretl/copier-example/actions/workflows/code.yml

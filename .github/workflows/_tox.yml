@@ -1,5 +1,11 @@
 on:
   workflow_call:
+    inputs:
+      tox:
+        type: string
+        description: What to run under tox
+        required: true
+
 
 jobs:
   run:
@@ -9,10 +15,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - run: cat README.rst
-
       - name: Install python packages
         uses: ./.github/actions/install_requirements
 
-      - name: Lint
-        run: tox -e pre-commit,pyright
+      - name: Run tox
+        run: tox -e ${{ inputs.tox }}
