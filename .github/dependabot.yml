@@ -8,13 +8,17 @@ updates:
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
-      interval: "weekly"
+      interval: "daily"
     groups:
-      github-artifacts:
+      actions:
         patterns:
-          - actions/*-artifact
+          - "*"
 
   - package-ecosystem: "pip"
     directory: "/"
     schedule:
-      interval: "weekly"
+      interval: "daily"
+    groups:
+      dev-dependencies:
+        patterns:
+          - "*"
