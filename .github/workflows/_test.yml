@@ -26,6 +26,17 @@ jobs:
         name: Install dev constrained python packages
         uses: ./.github/actions/install_requirements
 
+      - if: inputs.python-version == 'dev'
+        name: Write the requirements as an artifact
+        run: pip freeze --exclude-editable > dev-requirements.txt
+
+      - if: inputs.python-version == 'dev'
+        name: Upload dev-requirements.txt
+        uses: actions/upload-artifact@v4
+        with:
+          name: dev-requirements
+          path: dev-requirements.txt
+
       - if: inputs.python-version != 'dev'
         name: Install unconstrained python packages
         uses: ./.github/actions/install_requirements
