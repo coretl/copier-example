@@ -28,7 +28,7 @@ jobs:
 
       - if: inputs.python-version == 'dev'
         name: Write the requirements as an artifact
-        run: pip freeze --exclude-editable > dev-requirements.txt
+        run: pip freeze --exclude-editable > dev-requirements.txt && git diff
 
       - if: inputs.python-version == 'dev'
         name: Upload dev-requirements.txt

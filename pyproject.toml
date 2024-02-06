@@ -22,7 +22,6 @@ requires-python = ">=3.7"
 
 [project.optional-dependencies]
 dev = [
-    "pip-tools",
     "pre-commit",
     "pydata-sphinx-theme>=0.12",
     "pyright",
@@ -100,20 +99,9 @@ src = ["src", "tests"]
 line-length = 88
 select = [
     "B",  # flake8-bugbear
-    "C4", # flake8-comprehensions - https://beta.ruff.rs/docs/rules/#flake8-comprehensions-c4
     "E",  # pycodestyle errors - https://beta.ruff.rs/docs/rules/#error-e
     "F",  # pyflakes rules - https://beta.ruff.rs/docs/rules/#pyflakes-f
     "W",  # pycodestyle warnings - https://beta.ruff.rs/docs/rules/#warning-w
     "I",  # isort - https://docs.astral.sh/ruff/rules/#isort-i
     "UP", # pyupgrade
 ]
-
-[tool.pip-tools]
-src-files = ["pyproject.toml"]
-extras = ["dev"]
-output-file = "dev-requirements.txt"
-quiet = true
-# Make output suitable for use as a constraints file
-strip-extras = true
-# Remove annotations as coverage source seems to make false positive in CI
-annotate = false
